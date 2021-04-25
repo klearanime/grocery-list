@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react"
+import GroceryInput from "./GroceryInput"
+import List from "./List"
+import { GroceryInputContext, GroceryContext } from "./context/context"
+
+import "./App.css"
+
+
+
+let listObj = [
+  {
+    id: 1,
+    items: "milk",
+  },
+  {
+    id: 2,
+    items: "bread",
+  },
+]
 
 function App() {
+  const [listArray, setListArray] = useState(listObj)
+
+  function showListInput() {
+    return <GroceryInput />
+  }
+
+  function showItem() {
+    return listArray.map((item) => {
+      return (
+        <GroceryContext.Provider 
+        key={item.id} value={{listItem: item}}>
+          <List />
+        </GroceryContext.Provider>
+      )
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 className="name">Grocery List</h1>
+      <div className="App">
+        {showListInput()}
+        {showItem()}
+      </div>
     </div>
   );
 }
+
+
 
 export default App;
