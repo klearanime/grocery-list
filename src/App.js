@@ -21,8 +21,16 @@ let listObj = [
 function App() {
   const [listArray, setListArray] = useState(listObj)
 
+  function addGrocery(items) {
+    console.log(items);
+  }
+
   function showListInput() {
-    return <GroceryInput />
+    return (
+      <GroceryInputContext.Provider value={{ addGrocery }}>
+        <GroceryInput />
+      </GroceryInputContext.Provider>
+    )
   }
 
   function showItem() {
